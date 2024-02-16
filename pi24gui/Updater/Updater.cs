@@ -64,6 +64,7 @@ namespace pi24gui.Updater
                 Version latestVersion = new Version(releaseInfo.tag_name);
 
                 Console.WriteLine(latestVersion);
+                Console.WriteLine(currentProductVersion);
                 Console.WriteLine(new Version(currentProductVersion));
 
                 if (latestVersion > new Version(currentProductVersion))

@@ -78,6 +78,12 @@
             numRefreshTime = new NumericUpDown();
             cbRefresh = new CheckBox();
             cbSaveFeeder = new CheckBox();
+            tabAbout = new TabPage();
+            pbPlane = new PictureBox();
+            txtAbout = new TextBox();
+            lnkHelp = new LinkLabel();
+            lblCopyright = new Label();
+            lblAppName = new Label();
             btnFeederConnectDisconnect = new Button();
             toolStripMain = new ToolStrip();
             tsLastRefresh = new ToolStripLabel();
@@ -85,12 +91,7 @@
             tsSpacer = new ToolStripLabel();
             tsConnectionTime = new ToolStripLabel();
             tsConnectionTimeValue = new ToolStripLabel();
-            tabAbout = new TabPage();
-            label1 = new Label();
-            lblCopyright = new Label();
-            lnkHelp = new LinkLabel();
-            txtAbout = new TextBox();
-            pbPlane = new PictureBox();
+            lblVersion = new Label();
             tabControlFeederData.SuspendLayout();
             tabOverview.SuspendLayout();
             gbOverviewAircraftData.SuspendLayout();
@@ -101,9 +102,9 @@
             gbFlightAlert.SuspendLayout();
             gbAutomaticRefresh.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numRefreshTime).BeginInit();
-            toolStripMain.SuspendLayout();
             tabAbout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbPlane).BeginInit();
+            toolStripMain.SuspendLayout();
             SuspendLayout();
             // 
             // lblFeederUrl
@@ -628,6 +629,72 @@
             cbSaveFeeder.Text = "Save Feeder";
             cbSaveFeeder.UseVisualStyleBackColor = true;
             // 
+            // tabAbout
+            // 
+            tabAbout.Controls.Add(lblVersion);
+            tabAbout.Controls.Add(pbPlane);
+            tabAbout.Controls.Add(txtAbout);
+            tabAbout.Controls.Add(lnkHelp);
+            tabAbout.Controls.Add(lblCopyright);
+            tabAbout.Controls.Add(lblAppName);
+            tabAbout.Location = new Point(4, 29);
+            tabAbout.Name = "tabAbout";
+            tabAbout.Padding = new Padding(3);
+            tabAbout.Size = new Size(736, 346);
+            tabAbout.TabIndex = 4;
+            tabAbout.Text = "About";
+            tabAbout.UseVisualStyleBackColor = true;
+            // 
+            // pbPlane
+            // 
+            pbPlane.ErrorImage = Properties.Resources.airplane;
+            pbPlane.Image = Properties.Resources.airplane;
+            pbPlane.Location = new Point(644, 20);
+            pbPlane.Name = "pbPlane";
+            pbPlane.Size = new Size(70, 70);
+            pbPlane.SizeMode = PictureBoxSizeMode.Zoom;
+            pbPlane.TabIndex = 8;
+            pbPlane.TabStop = false;
+            // 
+            // txtAbout
+            // 
+            txtAbout.Location = new Point(20, 115);
+            txtAbout.Multiline = true;
+            txtAbout.Name = "txtAbout";
+            txtAbout.Size = new Size(694, 200);
+            txtAbout.TabIndex = 7;
+            txtAbout.Text = "Plane icon created by Freepik - Flaticon, available from https://www.flaticon.com/free-icons/plane";
+            // 
+            // lnkHelp
+            // 
+            lnkHelp.AutoSize = true;
+            lnkHelp.Location = new Point(597, 70);
+            lnkHelp.Name = "lnkHelp";
+            lnkHelp.Size = new Size(41, 20);
+            lnkHelp.TabIndex = 6;
+            lnkHelp.TabStop = true;
+            lnkHelp.Text = "Help";
+            // 
+            // lblCopyright
+            // 
+            lblCopyright.AutoSize = true;
+            lblCopyright.Location = new Point(20, 70);
+            lblCopyright.Name = "lblCopyright";
+            lblCopyright.Size = new Size(199, 20);
+            lblCopyright.TabIndex = 2;
+            lblCopyright.Text = "Copyright (c) Laim McKenzie";
+            // 
+            // lblAppName
+            // 
+            lblAppName.AutoSize = true;
+            lblAppName.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAppName.Location = new Point(20, 20);
+            lblAppName.Name = "lblAppName";
+            lblAppName.Size = new Size(116, 38);
+            lblAppName.TabIndex = 1;
+            lblAppName.Text = "pi24gui";
+            lblAppName.TextAlign = ContentAlignment.TopRight;
+            // 
             // btnFeederConnectDisconnect
             // 
             btnFeederConnectDisconnect.Location = new Point(670, 50);
@@ -683,70 +750,14 @@
             tsConnectionTimeValue.Name = "tsConnectionTimeValue";
             tsConnectionTimeValue.Size = new Size(0, 22);
             // 
-            // tabAbout
+            // lblVersion
             // 
-            tabAbout.Controls.Add(pbPlane);
-            tabAbout.Controls.Add(txtAbout);
-            tabAbout.Controls.Add(lnkHelp);
-            tabAbout.Controls.Add(lblCopyright);
-            tabAbout.Controls.Add(label1);
-            tabAbout.Location = new Point(4, 29);
-            tabAbout.Name = "tabAbout";
-            tabAbout.Padding = new Padding(3);
-            tabAbout.Size = new Size(736, 346);
-            tabAbout.TabIndex = 4;
-            tabAbout.Text = "About";
-            tabAbout.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(20, 20);
-            label1.Name = "label1";
-            label1.Size = new Size(116, 38);
-            label1.TabIndex = 1;
-            label1.Text = "pi24gui";
-            label1.TextAlign = ContentAlignment.TopRight;
-            // 
-            // lblCopyright
-            // 
-            lblCopyright.AutoSize = true;
-            lblCopyright.Location = new Point(20, 70);
-            lblCopyright.Name = "lblCopyright";
-            lblCopyright.Size = new Size(199, 20);
-            lblCopyright.TabIndex = 2;
-            lblCopyright.Text = "Copyright (c) Laim McKenzie";
-            // 
-            // lnkHelp
-            // 
-            lnkHelp.AutoSize = true;
-            lnkHelp.Location = new Point(597, 70);
-            lnkHelp.Name = "lnkHelp";
-            lnkHelp.Size = new Size(41, 20);
-            lnkHelp.TabIndex = 6;
-            lnkHelp.TabStop = true;
-            lnkHelp.Text = "Help";
-            // 
-            // txtAbout
-            // 
-            txtAbout.Location = new Point(20, 115);
-            txtAbout.Multiline = true;
-            txtAbout.Name = "txtAbout";
-            txtAbout.Size = new Size(694, 200);
-            txtAbout.TabIndex = 7;
-            txtAbout.Text = "Plane icon created by Freepik - Flaticon, available from https://www.flaticon.com/free-icons/plane";
-            // 
-            // pbPlane
-            // 
-            pbPlane.ErrorImage = Properties.Resources.airplane;
-            pbPlane.Image = Properties.Resources.airplane;
-            pbPlane.Location = new Point(644, 20);
-            pbPlane.Name = "pbPlane";
-            pbPlane.Size = new Size(70, 70);
-            pbPlane.SizeMode = PictureBoxSizeMode.Zoom;
-            pbPlane.TabIndex = 8;
-            pbPlane.TabStop = false;
+            lblVersion.AutoSize = true;
+            lblVersion.Location = new Point(20, 92);
+            lblVersion.Name = "lblVersion";
+            lblVersion.Size = new Size(60, 20);
+            lblVersion.TabIndex = 9;
+            lblVersion.Text = "{0.0.0.0}";
             // 
             // frmMain
             // 
@@ -780,11 +791,11 @@
             gbAutomaticRefresh.ResumeLayout(false);
             gbAutomaticRefresh.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numRefreshTime).EndInit();
-            toolStripMain.ResumeLayout(false);
-            toolStripMain.PerformLayout();
             tabAbout.ResumeLayout(false);
             tabAbout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbPlane).EndInit();
+            toolStripMain.ResumeLayout(false);
+            toolStripMain.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -848,10 +859,11 @@
         private DataGridViewTextBoxColumn Squawk;
         private Button btnOptionsSave;
         private TabPage tabAbout;
-        private Label label1;
+        private Label lblAppName;
         private Label lblCopyright;
         private LinkLabel lnkHelp;
         private TextBox txtAbout;
         private PictureBox pbPlane;
+        private Label lblVersion;
     }
 }

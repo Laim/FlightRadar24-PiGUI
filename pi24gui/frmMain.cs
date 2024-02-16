@@ -24,12 +24,13 @@ namespace pi24gui
         {
             base.OnLoad(e);
 
-            Updater.Updater updater = new Updater.Updater();
-            if (updater.CheckForUpdate(Application.ProductVersion))
+            if (new Updater.Updater().CheckForUpdate(Application.ProductVersion))
             {
-                frmUpdateNotice frm = new frmUpdateNotice();
+                using frmUpdateNotice frm = new();
                 frm.ShowDialog();
             }
+
+            lblVersion.Text = Application.ProductVersion;
 
             _userSettings = await settingsRepo.GetSettings();
         }
