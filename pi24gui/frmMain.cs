@@ -9,7 +9,7 @@ namespace pi24gui
     public partial class frmMain : Form
     {
         private readonly RadarClient _radarClient;
-        IUserSettingsRepo settingsRepo = new FileSystemUserSettingsRepo();
+        private readonly IUserSettingsRepo settingsRepo = new FileSystemUserSettingsRepo();
         private UserSettings _userSettings = new();
         private System.Windows.Forms.Timer? _autoRefreshTimer = null;
 
@@ -46,7 +46,7 @@ namespace pi24gui
 
             if (btn.Text == "Connect")
             {
-               Connect();
+                Connect();
             }
             else
             {
@@ -357,16 +357,6 @@ namespace pi24gui
             }
         }
 
-        private void lnkHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(
-                new ProcessStartInfo("https://github.com/Laim/pi24-GUI/blob/main/HELP.md")
-                {
-                    UseShellExecute = true
-                }
-           );
-        }
-
         /// <summary>
         /// Loads the user settings from appsettings.json
         /// </summary>
@@ -433,13 +423,38 @@ namespace pi24gui
         {
             SaveSettings();
 
-            if(cbRefresh.Checked)
+            if (cbRefresh.Checked)
             {
-                if(_autoRefreshTimer != null)
+                if (_autoRefreshTimer != null)
                 {
                     _autoRefreshTimer.Interval = Convert.ToInt32(numRefreshTime.Value * 1000);
                 }
             }
+        }
+
+        private void dgvAircraft_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) { return; }
+
+            DataGridView dgv = (DataGridView)sender;
+
+            var callSign = dgv.Rows[e.RowIndex].Cells.GetCellValueFromColumnName("Callsign") as string;
+
+            if (string.IsNullOrEmpty(callSign))
+            {
+                MessageBox.Show("Cannot open a flight with no call sign, pi24 has not reported callsign yet.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+        }
+
+        private void lnkHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(
+                new ProcessStartInfo("https://github.com/Laim/pi24-GUI/blob/main/HELP.md")
+                {
+                    UseShellExecute = true
+                }
+            );
         }
     }
 }

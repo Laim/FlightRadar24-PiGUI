@@ -79,6 +79,7 @@
             cbRefresh = new CheckBox();
             cbSaveFeeder = new CheckBox();
             tabAbout = new TabPage();
+            lblVersion = new Label();
             pbPlane = new PictureBox();
             txtAbout = new TextBox();
             lnkHelp = new LinkLabel();
@@ -91,7 +92,6 @@
             tsSpacer = new ToolStripLabel();
             tsConnectionTime = new ToolStripLabel();
             tsConnectionTimeValue = new ToolStripLabel();
-            lblVersion = new Label();
             tabControlFeederData.SuspendLayout();
             tabOverview.SuspendLayout();
             gbOverviewAircraftData.SuspendLayout();
@@ -395,6 +395,7 @@
             dgvAircraft.ShowRowErrors = false;
             dgvAircraft.Size = new Size(730, 340);
             dgvAircraft.TabIndex = 0;
+            dgvAircraft.CellDoubleClick += dgvAircraft_CellDoubleClick;
             // 
             // ModeS
             // 
@@ -645,6 +646,15 @@
             tabAbout.Text = "About";
             tabAbout.UseVisualStyleBackColor = true;
             // 
+            // lblVersion
+            // 
+            lblVersion.AutoSize = true;
+            lblVersion.Location = new Point(20, 92);
+            lblVersion.Name = "lblVersion";
+            lblVersion.Size = new Size(60, 20);
+            lblVersion.TabIndex = 9;
+            lblVersion.Text = "{0.0.0.0}";
+            // 
             // pbPlane
             // 
             pbPlane.ErrorImage = Properties.Resources.airplane;
@@ -674,6 +684,7 @@
             lnkHelp.TabIndex = 6;
             lnkHelp.TabStop = true;
             lnkHelp.Text = "Help";
+            lnkHelp.LinkClicked += lnkHelp_LinkClicked;
             // 
             // lblCopyright
             // 
@@ -749,15 +760,6 @@
             // 
             tsConnectionTimeValue.Name = "tsConnectionTimeValue";
             tsConnectionTimeValue.Size = new Size(0, 22);
-            // 
-            // lblVersion
-            // 
-            lblVersion.AutoSize = true;
-            lblVersion.Location = new Point(20, 92);
-            lblVersion.Name = "lblVersion";
-            lblVersion.Size = new Size(60, 20);
-            lblVersion.TabIndex = 9;
-            lblVersion.Text = "{0.0.0.0}";
             // 
             // frmMain
             // 
