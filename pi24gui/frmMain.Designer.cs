@@ -65,6 +65,7 @@
             tabLogs = new TabPage();
             txtLogs = new TextBox();
             tabOptions = new TabPage();
+            btnOptionsData = new Button();
             btnOptionsSave = new Button();
             cbAppendLog = new CheckBox();
             gbFlightAlert = new GroupBox();
@@ -180,12 +181,14 @@
             // 
             // lblLocalIpsValue
             // 
+            lblLocalIpsValue.Cursor = Cursors.Hand;
             lblLocalIpsValue.ForeColor = Color.FromArgb(192, 0, 0);
             lblLocalIpsValue.Location = new Point(126, 140);
             lblLocalIpsValue.Name = "lblLocalIpsValue";
             lblLocalIpsValue.Size = new Size(512, 59);
             lblLocalIpsValue.TabIndex = 12;
             lblLocalIpsValue.Text = "...";
+            lblLocalIpsValue.Click += lblLocalIpsValue_Click;
             // 
             // lblLocalIps
             // 
@@ -347,12 +350,14 @@
             // 
             // lblAliasValue
             // 
+            lblAliasValue.Cursor = Cursors.Hand;
             lblAliasValue.ForeColor = Color.FromArgb(192, 0, 0);
             lblAliasValue.Location = new Point(126, 20);
             lblAliasValue.Name = "lblAliasValue";
             lblAliasValue.Size = new Size(200, 20);
             lblAliasValue.TabIndex = 1;
             lblAliasValue.Text = "...";
+            lblAliasValue.Click += lblAliasValue_Click;
             // 
             // lblAlias
             // 
@@ -477,6 +482,7 @@
             // 
             // tabOptions
             // 
+            tabOptions.Controls.Add(btnOptionsData);
             tabOptions.Controls.Add(btnOptionsSave);
             tabOptions.Controls.Add(cbAppendLog);
             tabOptions.Controls.Add(gbFlightAlert);
@@ -491,6 +497,16 @@
             tabOptions.TabIndex = 3;
             tabOptions.Text = "Options";
             tabOptions.UseVisualStyleBackColor = true;
+            // 
+            // btnOptionsData
+            // 
+            btnOptionsData.Location = new Point(20, 302);
+            btnOptionsData.Name = "btnOptionsData";
+            btnOptionsData.Size = new Size(94, 29);
+            btnOptionsData.TabIndex = 7;
+            btnOptionsData.Text = "Data";
+            btnOptionsData.UseVisualStyleBackColor = true;
+            btnOptionsData.Click += btnOptionsData_Click;
             // 
             // btnOptionsSave
             // 
@@ -867,5 +883,6 @@
         private TextBox txtAbout;
         private PictureBox pbPlane;
         private Label lblVersion;
+        private Button btnOptionsData;
     }
 }
