@@ -65,6 +65,7 @@
             tabLogs = new TabPage();
             txtLogs = new TextBox();
             tabOptions = new TabPage();
+            btnOptionsData = new Button();
             btnOptionsSave = new Button();
             cbAppendLog = new CheckBox();
             gbFlightAlert = new GroupBox();
@@ -79,6 +80,7 @@
             cbRefresh = new CheckBox();
             cbSaveFeeder = new CheckBox();
             tabAbout = new TabPage();
+            lblVersion = new Label();
             pbPlane = new PictureBox();
             txtAbout = new TextBox();
             lnkHelp = new LinkLabel();
@@ -91,7 +93,6 @@
             tsSpacer = new ToolStripLabel();
             tsConnectionTime = new ToolStripLabel();
             tsConnectionTimeValue = new ToolStripLabel();
-            lblVersion = new Label();
             tabControlFeederData.SuspendLayout();
             tabOverview.SuspendLayout();
             gbOverviewAircraftData.SuspendLayout();
@@ -122,7 +123,7 @@
             txtFeederUrl.Name = "txtFeederUrl";
             txtFeederUrl.Size = new Size(279, 27);
             txtFeederUrl.TabIndex = 1;
-            txtFeederUrl.Text = "http://192.168.0.128";
+            txtFeederUrl.Text = "http://0.0.0.0";
             // 
             // lblFeederPort
             // 
@@ -180,12 +181,14 @@
             // 
             // lblLocalIpsValue
             // 
+            lblLocalIpsValue.Cursor = Cursors.Hand;
             lblLocalIpsValue.ForeColor = Color.FromArgb(192, 0, 0);
             lblLocalIpsValue.Location = new Point(126, 140);
             lblLocalIpsValue.Name = "lblLocalIpsValue";
             lblLocalIpsValue.Size = new Size(512, 59);
             lblLocalIpsValue.TabIndex = 12;
             lblLocalIpsValue.Text = "...";
+            lblLocalIpsValue.Click += lblLocalIpsValue_Click;
             // 
             // lblLocalIps
             // 
@@ -347,12 +350,14 @@
             // 
             // lblAliasValue
             // 
+            lblAliasValue.Cursor = Cursors.Hand;
             lblAliasValue.ForeColor = Color.FromArgb(192, 0, 0);
             lblAliasValue.Location = new Point(126, 20);
             lblAliasValue.Name = "lblAliasValue";
             lblAliasValue.Size = new Size(200, 20);
             lblAliasValue.TabIndex = 1;
             lblAliasValue.Text = "...";
+            lblAliasValue.Click += lblAliasValue_Click;
             // 
             // lblAlias
             // 
@@ -395,6 +400,7 @@
             dgvAircraft.ShowRowErrors = false;
             dgvAircraft.Size = new Size(730, 340);
             dgvAircraft.TabIndex = 0;
+            dgvAircraft.CellDoubleClick += dgvAircraft_CellDoubleClick;
             // 
             // ModeS
             // 
@@ -476,6 +482,7 @@
             // 
             // tabOptions
             // 
+            tabOptions.Controls.Add(btnOptionsData);
             tabOptions.Controls.Add(btnOptionsSave);
             tabOptions.Controls.Add(cbAppendLog);
             tabOptions.Controls.Add(gbFlightAlert);
@@ -490,6 +497,16 @@
             tabOptions.TabIndex = 3;
             tabOptions.Text = "Options";
             tabOptions.UseVisualStyleBackColor = true;
+            // 
+            // btnOptionsData
+            // 
+            btnOptionsData.Location = new Point(20, 302);
+            btnOptionsData.Name = "btnOptionsData";
+            btnOptionsData.Size = new Size(94, 29);
+            btnOptionsData.TabIndex = 7;
+            btnOptionsData.Text = "Data";
+            btnOptionsData.UseVisualStyleBackColor = true;
+            btnOptionsData.Click += btnOptionsData_Click;
             // 
             // btnOptionsSave
             // 
@@ -645,6 +662,15 @@
             tabAbout.Text = "About";
             tabAbout.UseVisualStyleBackColor = true;
             // 
+            // lblVersion
+            // 
+            lblVersion.AutoSize = true;
+            lblVersion.Location = new Point(20, 92);
+            lblVersion.Name = "lblVersion";
+            lblVersion.Size = new Size(60, 20);
+            lblVersion.TabIndex = 9;
+            lblVersion.Text = "{0.0.0.0}";
+            // 
             // pbPlane
             // 
             pbPlane.ErrorImage = Properties.Resources.airplane;
@@ -674,6 +700,7 @@
             lnkHelp.TabIndex = 6;
             lnkHelp.TabStop = true;
             lnkHelp.Text = "Help";
+            lnkHelp.LinkClicked += lnkHelp_LinkClicked;
             // 
             // lblCopyright
             // 
@@ -749,15 +776,6 @@
             // 
             tsConnectionTimeValue.Name = "tsConnectionTimeValue";
             tsConnectionTimeValue.Size = new Size(0, 22);
-            // 
-            // lblVersion
-            // 
-            lblVersion.AutoSize = true;
-            lblVersion.Location = new Point(20, 92);
-            lblVersion.Name = "lblVersion";
-            lblVersion.Size = new Size(60, 20);
-            lblVersion.TabIndex = 9;
-            lblVersion.Text = "{0.0.0.0}";
             // 
             // frmMain
             // 
@@ -865,5 +883,6 @@
         private TextBox txtAbout;
         private PictureBox pbPlane;
         private Label lblVersion;
+        private Button btnOptionsData;
     }
 }

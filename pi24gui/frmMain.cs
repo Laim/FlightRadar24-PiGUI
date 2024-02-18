@@ -9,9 +9,10 @@ namespace pi24gui
     public partial class frmMain : Form
     {
         private readonly RadarClient _radarClient;
-        IUserSettingsRepo settingsRepo = new FileSystemUserSettingsRepo();
+        private readonly IUserSettingsRepo _settingsRepo = new FileSystemUserSettingsRepo();
         private UserSettings _userSettings = new();
         private System.Windows.Forms.Timer? _autoRefreshTimer = null;
+        private string _legacyRadarCode = string.Empty;
 
         public frmMain()
         {
@@ -32,7 +33,7 @@ namespace pi24gui
 
             lblVersion.Text = Application.ProductVersion;
 
-            _userSettings = await settingsRepo.GetSettings();
+            _userSettings = await _settingsRepo.GetSettings();
         }
 
         private void btnFeederConnectDisconnect_Click(object sender, EventArgs e)
@@ -46,7 +47,7 @@ namespace pi24gui
 
             if (btn.Text == "Connect")
             {
-               Connect();
+                Connect();
             }
             else
             {
@@ -134,6 +135,8 @@ namespace pi24gui
             lblAircraftTrackedACValue.Text = overview.ac_map_size;
             lblAircraftTrackedD11Value.Text = overview.d11_map_size;
             lblAircraftUploadedValue.Text = overview.feed_num_ac_tracked;
+
+            _legacyRadarCode = overview.feed_legacy_id ?? "";
 
             SetTextColor(overview);
         }
@@ -357,24 +360,23 @@ namespace pi24gui
             }
         }
 
-        private void lnkHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(
-                new ProcessStartInfo("https://github.com/Laim/pi24-GUI/blob/main/HELP.md")
-                {
-                    UseShellExecute = true
-                }
-           );
-        }
-
         /// <summary>
         /// Loads the user settings from appsettings.json
         /// </summary>
         private void LoadSettings()
         {
+            // Fixes: https://github.com/Laim/pi24gui/issues/1
+            if (string.IsNullOrEmpty(txtFeederUrl.Text))
+            {
+                txtFeederUrl.Text = _userSettings.FeederURL;
+            }
 
-            txtFeederUrl.Text = _userSettings.FeederURL;
-            txtFeederPort.Text = _userSettings.FeederPort.ToString();
+            // Fixes: https://github.com/Laim/pi24gui/issues/1
+            if (string.IsNullOrEmpty(txtFeederPort.Text))
+            {
+                txtFeederPort.Text = _userSettings.FeederPort.ToString();
+            }
+
             if (!string.IsNullOrEmpty(_userSettings.FeederURL))
             {
                 cbSaveFeeder.Checked = true;
@@ -418,7 +420,7 @@ namespace pi24gui
                 _userSettings.FlightAlertNotification = cbFlightAlertNotification.Checked;
                 _userSettings.FlightAlertBeep = cbFlightAlertBeep.Checked;
 
-                await settingsRepo.SaveSettings(_userSettings);
+                await _settingsRepo.SaveSettings(_userSettings);
 
 
                 MessageBox.Show("Saved Successfully", "Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -433,13 +435,80 @@ namespace pi24gui
         {
             SaveSettings();
 
-            if(cbRefresh.Checked)
+            if (cbRefresh.Checked)
             {
-                if(_autoRefreshTimer != null)
+                if (_autoRefreshTimer != null)
                 {
                     _autoRefreshTimer.Interval = Convert.ToInt32(numRefreshTime.Value * 1000);
                 }
             }
+        }
+
+        private void dgvAircraft_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) { return; }
+
+            DataGridView dgv = (DataGridView)sender;
+
+            var callSign = dgv.Rows[e.RowIndex].Cells.GetCellValueFromColumnName("Callsign") as string;
+
+            if (string.IsNullOrEmpty(callSign))
+            {
+                MessageBox.Show("Cannot open a flight with no call sign, pi24 has not reported callsign yet.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            Process.Start(
+                new ProcessStartInfo($"https://www.flightradar24.com/{callSign}?ref=pi24gui")
+                {
+                    UseShellExecute = true
+                }
+            );
+        }
+
+        private void lnkHelp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(
+                new ProcessStartInfo("https://github.com/Laim/pi24-GUI/blob/main/HELP.md")
+                {
+                    UseShellExecute = true
+                }
+            );
+        }
+
+        private void btnOptionsData_Click(object sender, EventArgs e)
+        {
+            Process.Start(
+                new ProcessStartInfo(FileSystemUserSettingsRepo.GetSettingsFolderPath())
+                {
+                    UseShellExecute = true
+                }
+            );
+        }
+
+        private void lblAliasValue_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(_legacyRadarCode))
+            {
+                return;
+            }
+
+            Process.Start(
+                new ProcessStartInfo($"https://www.flightradar24.com/account/feed-stats/?id={_legacyRadarCode}")
+                {
+                    UseShellExecute = true
+                }
+            );
+        }
+
+        private void lblLocalIpsValue_Click(object sender, EventArgs e)
+        {
+            Process.Start(
+                new ProcessStartInfo($"{txtFeederUrl.Text}:{txtFeederPort.Text}")
+                {
+                    UseShellExecute = true
+                }
+            );
         }
     }
 }

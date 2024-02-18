@@ -40,13 +40,13 @@ namespace pi24gui.Settings
             await JsonSerializer.SerializeAsync(settingsFileStream, userSettings);
         }
 
-        private static string GetSettingsFolderPath()
+        public static string GetSettingsFolderPath()
         {
             var appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             return Path.Combine(appDataFolder, AppName);
         }
 
-        private static string GetSettingsFilePath()
+        public static string GetSettingsFilePath()
         {
             var settingsFolder = GetSettingsFolderPath();
             return Path.Combine(settingsFolder, SettingsFileName);

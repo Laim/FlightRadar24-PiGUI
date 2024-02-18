@@ -10,6 +10,8 @@ Download the latest release and open pi24gui.exe, enter your feeder URL and port
 
 Please note that you need to include http://, so if your feeder url is 192.168.1.12, enter http://192.168.1.12.
 
+See [HELP.md](HELP.md) for more information.
+
 # Build from Source
 Download Visual Studio 17.8.3 or later and ensure .NET 8 is installed. 
 
