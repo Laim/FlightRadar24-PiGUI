@@ -7,6 +7,11 @@ To access your pi24 web page from the application, click on the Local IP(s) in t
 
 To go to a specific flight being shown under the Tracked Aircraft tab, double click on the aircrafts data row (anywhere you want) and it will open the aircraft on the FlightRadar24 website.
 
+## FlightAlert
+FlightAlert will send you a System Notification or System Beep (both if both are selected) every time a callsign you specify appears in the Tracked Aircraft list.
+
+This feature requires the GUI to be open or running in the background.
+
 ## Options
 This just explains what each setting does
 

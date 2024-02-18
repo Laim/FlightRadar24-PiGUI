@@ -1,9 +1,7 @@
 # pi24gui
 This is GUI for pi24 (FlightRadar24) that you can leave open and it'll refresh automatically if configured.
 
-![Overview Tab](https://github.com/Laim/pi24gui/assets/14845036/da1ae3c7-2534-4937-8a08-422a5e4ca1dd)
-
-![Aircraft Tab](https://github.com/Laim/pi24gui/assets/14845036/8bd82c67-cbc1-4c40-aa19-61c3e546a69d)
+![pi24gui-gif](https://github.com/Laim/pi24gui/assets/14845036/f8819acd-da41-433e-8ab4-250f828c972c)
 
 # Usage
 Download the latest release and open pi24gui.exe, enter your feeder URL and port (default port is 8754) and click connect.

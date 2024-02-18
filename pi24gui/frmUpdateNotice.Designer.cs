@@ -77,10 +77,10 @@
             // 
             // txtReleaseInformation
             // 
-            txtReleaseInformation.Enabled = false;
             txtReleaseInformation.Location = new Point(29, 126);
             txtReleaseInformation.Multiline = true;
             txtReleaseInformation.Name = "txtReleaseInformation";
+            txtReleaseInformation.ReadOnly = true;
             txtReleaseInformation.ScrollBars = ScrollBars.Vertical;
             txtReleaseInformation.Size = new Size(521, 205);
             txtReleaseInformation.TabIndex = 4;
@@ -113,7 +113,7 @@
             Name = "frmUpdateNotice";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Update Notice";
+            Text = "Update Available";
             ResumeLayout(false);
             PerformLayout();
         }

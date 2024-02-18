@@ -6,7 +6,7 @@
 
         public bool AutoRefreshEnabled { get; set; } = false;
 
-        public int AutoRefreshInterval { get; set; } = 5;
+        public int AutoRefreshInterval { get; set; } = 60;
 
         public bool FlightAlertEnabled { get; set; } = false;
 

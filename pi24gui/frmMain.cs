@@ -3,6 +3,8 @@ using pi24gui.Models;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using pi24gui.Settings;
+using Microsoft.Toolkit.Uwp.Notifications;
+using System.ComponentModel;
 
 namespace pi24gui
 {
@@ -27,6 +29,7 @@ namespace pi24gui
 
             if (new Updater.Updater().CheckForUpdate(Application.ProductVersion))
             {
+                Text += $" - Update Available";
                 using frmUpdateNotice frm = new();
                 frm.ShowDialog();
             }
@@ -34,6 +37,15 @@ namespace pi24gui
             lblVersion.Text = Application.ProductVersion;
 
             _userSettings = await _settingsRepo.GetSettings();
+            LoadSettings();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+
+            // Clears notifications
+            ToastNotificationManagerCompat.Uninstall();
         }
 
         private void btnFeederConnectDisconnect_Click(object sender, EventArgs e)
@@ -100,6 +112,33 @@ namespace pi24gui
                         flight.Squawk
                     }
                 );
+
+                // Flight Alert
+                if (cbFlightAlert.Checked)
+                {
+                    string alertCallSign = txtAlertCallSign.Text;
+
+                    if (string.Equals(flight.Callsign, alertCallSign, StringComparison.CurrentCultureIgnoreCase))
+                    {
+
+                        if (cbFlightAlertNotification.Checked)
+                        {
+                            new ToastContentBuilder()
+                            .AddText("FlightAlert")
+                            .AddText($"{alertCallSign} being tracked.")
+                            .SetToastScenario(ToastScenario.Default)
+                            .Show();
+                        }
+
+                        if (cbFlightAlertBeep.Checked)
+                        {
+                            Console.Beep(650, 25);
+                            Console.Beep(750, 25);
+                            Console.Beep(850, 25);
+                        }
+
+                    }
+                }
             }
         }
 
@@ -388,7 +427,7 @@ namespace pi24gui
             numRefreshTime.Value = _userSettings.AutoRefreshInterval;
 
             cbFlightAlert.Checked = _userSettings.FlightAlertEnabled;
-            txtCallSign.Text = _userSettings.FlightAlertCallSign;
+            txtAlertCallSign.Text = _userSettings.FlightAlertCallSign;
             cbFlightAlertNotification.Checked = _userSettings.FlightAlertNotification;
             cbFlightAlertBeep.Checked = _userSettings.FlightAlertBeep;
         }
@@ -406,19 +445,21 @@ namespace pi24gui
 
             try
             {
-                _userSettings = new();
-                _userSettings.FeederURL = txtFeederUrl.Text;
-                _userSettings.FeederPort = Convert.ToInt32(txtFeederPort.Text);
+                _userSettings = new()
+                {
+                    FeederURL = txtFeederUrl.Text,
+                    FeederPort = Convert.ToInt32(txtFeederPort.Text),
 
-                _userSettings.AppendLog = cbAppendLog.Checked;
+                    AppendLog = cbAppendLog.Checked,
 
-                _userSettings.AutoRefreshEnabled = cbRefresh.Checked;
-                _userSettings.AutoRefreshInterval = Convert.ToInt32(numRefreshTime.Value);
+                    AutoRefreshEnabled = cbRefresh.Checked,
+                    AutoRefreshInterval = Convert.ToInt32(numRefreshTime.Value),
 
-                _userSettings.FlightAlertEnabled = cbFlightAlert.Checked;
-                _userSettings.FlightAlertCallSign = txtCallSign.Text;
-                _userSettings.FlightAlertNotification = cbFlightAlertNotification.Checked;
-                _userSettings.FlightAlertBeep = cbFlightAlertBeep.Checked;
+                    FlightAlertEnabled = cbFlightAlert.Checked,
+                    FlightAlertCallSign = txtAlertCallSign.Text,
+                    FlightAlertNotification = cbFlightAlertNotification.Checked,
+                    FlightAlertBeep = cbFlightAlertBeep.Checked
+                };
 
                 await _settingsRepo.SaveSettings(_userSettings);
 
@@ -433,13 +474,27 @@ namespace pi24gui
 
         private void btnOptionsSave_Click(object sender, EventArgs e)
         {
-            SaveSettings();
+            bool canSave = true;
 
-            if (cbRefresh.Checked)
+            if (cbFlightAlert.Checked)
             {
-                if (_autoRefreshTimer != null)
+                if (!cbFlightAlertBeep.Checked && !cbFlightAlertNotification.Checked)
                 {
-                    _autoRefreshTimer.Interval = Convert.ToInt32(numRefreshTime.Value * 1000);
+                    MessageBox.Show("At least one alert option must be enabled if FlightAlert is enabled.", "Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    canSave = false;
+                }
+            }
+
+            if (canSave)
+            {
+                SaveSettings();
+
+                if (cbRefresh.Checked)
+                {
+                    if (_autoRefreshTimer != null)
+                    {
+                        _autoRefreshTimer.Interval = Convert.ToInt32(numRefreshTime.Value * 1000);
+                    }
                 }
             }
         }
@@ -509,6 +564,16 @@ namespace pi24gui
                     UseShellExecute = true
                 }
             );
+        }
+
+        private void lblAlertHelp_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+                $"Every time the Callsign appears in the Tracked Aircraft list, " +
+                $"you will get a Notification or Beep (depending on what you've selected)." +
+                $"\r\n \r\n" +
+                $"If you have a 15 second refresh, it will alert you every 15 seconds.", 
+                Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
