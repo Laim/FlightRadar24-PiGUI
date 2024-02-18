@@ -1,6 +1,6 @@
 # Help
 
-You can access your userSettings.json file here: C:\Users\%username%\AppData\Local\pi24gui
+You can access your userSettings.json file here: `C:\Users\%username%\AppData\Local\pi24gui`
 
 ## Usage
 Once connected to your Receiver, which you can do by following the 'Usage' section in the README, there's a few things that you can do.
