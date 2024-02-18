@@ -69,9 +69,10 @@
             btnOptionsSave = new Button();
             cbAppendLog = new CheckBox();
             gbFlightAlert = new GroupBox();
+            lblAlertHelp = new Label();
             cbFlightAlertBeep = new CheckBox();
             cbFlightAlertNotification = new CheckBox();
-            txtCallSign = new TextBox();
+            txtAlertCallSign = new TextBox();
             lblFlightAlertCallSign = new Label();
             cbFlightAlert = new CheckBox();
             gbAutomaticRefresh = new GroupBox();
@@ -123,7 +124,6 @@
             txtFeederUrl.Name = "txtFeederUrl";
             txtFeederUrl.Size = new Size(279, 27);
             txtFeederUrl.TabIndex = 1;
-            txtFeederUrl.Text = "http://0.0.0.0";
             // 
             // lblFeederPort
             // 
@@ -140,7 +140,6 @@
             txtFeederPort.Name = "txtFeederPort";
             txtFeederPort.Size = new Size(279, 27);
             txtFeederPort.TabIndex = 3;
-            txtFeederPort.Text = "8754";
             // 
             // tabControlFeederData
             // 
@@ -530,9 +529,10 @@
             // 
             // gbFlightAlert
             // 
+            gbFlightAlert.Controls.Add(lblAlertHelp);
             gbFlightAlert.Controls.Add(cbFlightAlertBeep);
             gbFlightAlert.Controls.Add(cbFlightAlertNotification);
-            gbFlightAlert.Controls.Add(txtCallSign);
+            gbFlightAlert.Controls.Add(txtAlertCallSign);
             gbFlightAlert.Controls.Add(lblFlightAlertCallSign);
             gbFlightAlert.Enabled = false;
             gbFlightAlert.Location = new Point(371, 90);
@@ -541,7 +541,16 @@
             gbFlightAlert.TabIndex = 3;
             gbFlightAlert.TabStop = false;
             gbFlightAlert.Text = "Flight Alert";
-            gbFlightAlert.Visible = false;
+            // 
+            // lblAlertHelp
+            // 
+            lblAlertHelp.AutoSize = true;
+            lblAlertHelp.Location = new Point(311, 84);
+            lblAlertHelp.Name = "lblAlertHelp";
+            lblAlertHelp.Size = new Size(16, 20);
+            lblAlertHelp.TabIndex = 5;
+            lblAlertHelp.Text = "?";
+            lblAlertHelp.Click += lblAlertHelp_Click;
             // 
             // cbFlightAlertBeep
             // 
@@ -563,12 +572,12 @@
             cbFlightAlertNotification.Text = "Notification";
             cbFlightAlertNotification.UseVisualStyleBackColor = true;
             // 
-            // txtCallSign
+            // txtAlertCallSign
             // 
-            txtCallSign.Location = new Point(98, 38);
-            txtCallSign.Name = "txtCallSign";
-            txtCallSign.Size = new Size(229, 27);
-            txtCallSign.TabIndex = 2;
+            txtAlertCallSign.Location = new Point(98, 38);
+            txtAlertCallSign.Name = "txtAlertCallSign";
+            txtAlertCallSign.Size = new Size(229, 27);
+            txtAlertCallSign.TabIndex = 2;
             // 
             // lblFlightAlertCallSign
             // 
@@ -590,7 +599,6 @@
             cbFlightAlert.TabIndex = 3;
             cbFlightAlert.Text = "Flight Alert";
             cbFlightAlert.UseVisualStyleBackColor = true;
-            cbFlightAlert.Visible = false;
             cbFlightAlert.CheckedChanged += cbFlightAlert_CheckedChanged;
             // 
             // gbAutomaticRefresh
@@ -623,7 +631,7 @@
             numRefreshTime.Name = "numRefreshTime";
             numRefreshTime.Size = new Size(150, 27);
             numRefreshTime.TabIndex = 0;
-            numRefreshTime.Value = new decimal(new int[] { 5, 0, 0, 0 });
+            numRefreshTime.Value = new decimal(new int[] { 60, 0, 0, 0 });
             // 
             // cbRefresh
             // 
@@ -857,7 +865,7 @@
         private NumericUpDown numRefreshTime;
         private GroupBox gbFlightAlert;
         private CheckBox cbFlightAlert;
-        private TextBox txtCallSign;
+        private TextBox txtAlertCallSign;
         private Label lblFlightAlertCallSign;
         private CheckBox cbFlightAlertBeep;
         private CheckBox cbFlightAlertNotification;
@@ -884,5 +892,6 @@
         private PictureBox pbPlane;
         private Label lblVersion;
         private Button btnOptionsData;
+        private Label lblAlertHelp;
     }
 }
