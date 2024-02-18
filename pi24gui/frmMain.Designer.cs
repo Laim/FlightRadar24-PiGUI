@@ -123,7 +123,7 @@
             txtFeederUrl.Name = "txtFeederUrl";
             txtFeederUrl.Size = new Size(279, 27);
             txtFeederUrl.TabIndex = 1;
-            txtFeederUrl.Text = "http://192.168.0.128";
+            txtFeederUrl.Text = "http://0.0.0.0";
             // 
             // lblFeederPort
             // 
